@@ -1,4 +1,4 @@
-# 🛠️ Project: Hacktastic-9000
+# 🛠️ Project: SoggyMalk32
 
 Welcome to **Soggymalk32** — the project you never knew you needed, but now can’t live without. This magical concoction of HTML, JavaScript, and wizardry lets you do [insert awesome thing here] like a pro.
 

@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+  <style>
+    /* Hide all system cursors globally */
+    * {
+      cursor: none !important;
+    }
+  
+    .custom-cursor {
+      position: fixed;
+      top: 0;
+      left: 0;
+      width: 20px;
+      height: 20px;
+      border-radius: 50%;
+      background: rgba(255, 0, 0, 0.7);
+      pointer-events: none;
+      transform: translate(-50%, -50%);
+      transition: width 0.2s ease, height 0.2s ease, background 0.2s ease;
+      z-index: 9999;
+      mix-blend-mode: difference;
+    }
+  
+    .custom-cursor {
+      width: 16px;
+      height: 16px;
+      background: rgba(255, 0, 0, 0.7);
+      /* ... rest is the same */
+    }

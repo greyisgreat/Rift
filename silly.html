@@ -1,154 +1,196 @@
 <!DOCTYPE html>
 <html lang="en">
 <head>
-  <meta charset="UTF-8">
-  <title>Silly Project Selector</title>
-  <style>
-    body {
-      font-family: "Comic Sans MS", cursive;
-      text-align: center;
-      background: #fef08a;
-      padding-top: 100px;
-      overflow: hidden;
-      animation: wiggle-bg 10s infinite alternate;
-    }
+<meta charset="UTF-8">
+<title>Chaos Game Launcher</title>
 
-    h1 {
-      font-size: 3em;
-      color: hotpink;
-      transform: rotate(-3deg);
-    }
+<style>
+  body {
+    margin: 0;
+    font-family: "Comic Sans MS", cursive;
+    background: linear-gradient(120deg, #ffd6e7, #fef08a);
+    height: 100vh;
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    overflow: hidden;
+  }
 
-    select {
-      font-size: 1.2em;
-      padding: 10px;
-      border: 3px dotted blue;
-      background: #fff;
-      border-radius: 10px;
-      margin-top: 20px;
-    }
+  .launcher {
+    background: white;
+    width: 420px;
+    padding: 25px;
+    border-radius: 25px;
+    box-shadow: 0 20px 40px rgba(0,0,0,.25);
+    animation: wobble 6s infinite alternate;
+  }
 
-    button {
-      margin-top: 20px;
-      padding: 12px 24px;
-      font-size: 1.5em;
-      background: limegreen;
-      border: none;
-      border-radius: 20px;
-      cursor: pointer;
-      transition: transform 0.3s ease;
-      position: relative;
-    }
+  h1 {
+    margin: 0 0 15px;
+    color: hotpink;
+    transform: rotate(-2deg);
+  }
 
-    button.launching {
-      animation: blastoff 1.5s ease-in forwards;
-    }
+  input {
+    width: 100%;
+    padding: 12px;
+    font-size: 1.1em;
+    border-radius: 12px;
+    border: 3px dashed hotpink;
+    outline: none;
+    margin-bottom: 10px;
+  }
 
-    @keyframes blastoff {
-      0% { transform: translateY(0) rotate(0); }
-      30% { transform: translateY(-100px) rotate(-5deg); }
-      60% { transform: translateY(-300px) rotate(10deg); }
-      100% { transform: translateY(-1000px) rotate(720deg); opacity: 0; }
-    }
+  .list {
+    max-height: 260px;
+    overflow-y: auto;
+    text-align: left;
+  }
 
-    @keyframes wiggle-bg {
-      from { background-color: #fef08a; }
-      to { background-color: #ffd6e7; }
-    }
-  </style>
+  .game {
+    padding: 10px 14px;
+    margin-bottom: 6px;
+    background: #fef08a;
+    border-radius: 12px;
+    cursor: pointer;
+    transition: transform .15s, background .15s;
+  }
+
+  .game:hover {
+    transform: scale(1.05);
+    background: #ffd6e7;
+  }
+
+  .buttons {
+    display: flex;
+    gap: 10px;
+    margin-top: 15px;
+  }
+
+  button {
+    flex: 1;
+    padding: 12px;
+    font-size: 1.2em;
+    border: none;
+    border-radius: 20px;
+    cursor: pointer;
+  }
+
+  .random { background: limegreen; }
+  .last { background: deepskyblue; }
+
+  @keyframes wobble {
+    from { transform: rotate(-1deg); }
+    to { transform: rotate(1deg); }
+  }
+</style>
 </head>
+
 <body>
 
-  <h1>🎉 Silly Project Selector 🎲</h1>
+<div class="launcher">
+  <h1>🎲 CHAOS GAME LAUNCHER</h1>
 
-  <select id="projectSelect">
-    <option value="">-- Choose your chaos --</option>
-  </select>
+  <input id="search" placeholder="Search your doom..." autocomplete="off">
 
-  <br>
-  <button id="launchBtn" onclick="goToProject()">Launch!</button>
+  <div class="list" id="gameList"></div>
 
-  <script>
-    const projects = [
-      "Silly things/buttongame.html",
-      "Silly things/result.html",
-      "Silly things/EaglercraftX_1.8.html",
-      "Silly things/clicker.html",
-      "Silly things/yohohoio/index.html",
-      "Silly things/bitlife/index.html",
-      "Silly things/cell-machine/index.html",
-      "Silly things/motox3m/index.html",
-      "Silly things/Space.html",
-      "Silly things/slope/index.html",
-      "Silly things/ropepolice/index.html",
-      "Silly things/retrobowl/index.html",
-      "Silly things/motox3m-winter/index.html",
-      "Silly things/motox3m-spooky/index.html",
-      "Silly things/motox3m-pool/index.html",
-      "Silly things/kittencannon/index.html",
-      "Silly things/interactivebuddy/index.html",
-      "Silly things/geometrydash/index.html",
-      "Silly things/flappy-bird/index.html",
-      "Silly things/finalearth2/index.html",
-      "Silly things/exo/index.html",
-      "Silly things/ducklife1/index.html",
-      "Silly things/ducklife2/index.html",
-      "Silly things/ducklife3/index.html",
-      "Silly things/draw-the-hill/index.html",
-      "Silly things/doodle-jump/index.html",
-      "Silly things/dogeminer/index.html",
-      "Silly things/death-run-3d/index.html",
-      "Silly things/deal-or-no-deal/index.html",
-      "Silly things/chrome-dino/index.html",
-      "Silly things/among-us/index.html",
-      "Silly things/avalanche/index.html",
-      "Silly things/backrooms/index.html",
-      "Silly things/basketball-stars/index.html",
-      "Silly things/bloonstd2/index.html"
-    ];
+  <div class="buttons">
+    <button class="random" onclick="randomGame()">🎲 Random</button>
+    <button class="last" onclick="lastGame()">⏮ Last</button>
+  </div>
+</div>
 
-    const select = document.getElementById("projectSelect");
+<script>
+const games = [
+  "Silly things/buttongame.html",
+  "Silly things/result.html",
+  "Silly things/EaglercraftX_1.8.html",
+  "Silly things/clicker.html",
+  "Silly things/yohohoio/index.html",
+  "Silly things/bitlife/index.html",
+  "Silly things/cell-machine/index.html",
+  "Silly things/motox3m/index.html",
+  "Silly things/Space.html",
+  "Silly things/slope/index.html",
+  "Silly things/ropepolice/index.html",
+  "Silly things/retrobowl/index.html",
+  "Silly things/motox3m-winter/index.html",
+  "Silly things/motox3m-spooky/index.html",
+  "Silly things/motox3m-pool/index.html",
+  "Silly things/kittencannon/index.html",
+  "Silly things/interactivebuddy/index.html",
+  "Silly things/geometrydash/index.html",
+  "Silly things/flappy-bird/index.html",
+  "Silly things/finalearth2/index.html",
+  "Silly things/exo/index.html",
+  "Silly things/ducklife1/index.html",
+  "Silly things/ducklife2/index.html",
+  "Silly things/ducklife3/index.html",
+  "Silly things/draw-the-hill/index.html",
+  "Silly things/doodle-jump/index.html",
+  "Silly things/dogeminer/index.html",
+  "Silly things/death-run-3d/index.html",
+  "Silly things/deal-or-no-deal/index.html",
+  "Silly things/chrome-dino/index.html",
+  "Silly things/among-us/index.html",
+  "Silly things/avalanche/index.html",
+  "Silly things/backrooms/index.html",
+  "Silly things/basketball-stars/index.html",
+  "Silly things/bloonstd2/index.html"
+];
 
-    projects.forEach(path => {
-      const parts = path.split("/");
-      let name = parts.at(-1);
+const list = document.getElementById("gameList");
+const search = document.getElementById("search");
 
-      if (name.toLowerCase() === "index.html") {
-        name = parts.at(-2);
-      } else {
-        name = name.replace(".html", "");
-      }
+function cleanName(path) {
+  let p = path.split("/");
+  let name = p.at(-1) === "index.html" ? p.at(-2) : p.at(-1).replace(".html","");
+  return name.replace(/[-_]/g," ").replace(/\b\w/g,c=>c.toUpperCase());
+}
 
-      name = name
-        .replace(/[-_]/g, " ")
-        .replace(/\b\w/g, c => c.toUpperCase());
-
-      const option = document.createElement("option");
-      option.value = path;
-      option.textContent = name;
-
-      select.appendChild(option);
+function render(filter="") {
+  list.innerHTML = "";
+  games
+    .filter(g => cleanName(g).toLowerCase().includes(filter))
+    .forEach(g => {
+      const div = document.createElement("div");
+      div.className = "game";
+      div.textContent = cleanName(g);
+      div.onclick = () => launch(g);
+      list.appendChild(div);
     });
+}
 
-    function goToProject() {
-      const value = select.value;
-      const btn = document.getElementById("launchBtn");
+function launch(path) {
+  localStorage.setItem("lastGame", path);
+  new Audio("https://www.soundjay.com/button/beep-07.wav").play();
+  setTimeout(() => location.href = path, 300);
+}
 
-      if (!value) {
-        alert("Pick a project, you silly goose!");
-        return;
-      }
+function randomGame() {
+  launch(games[Math.floor(Math.random() * games.length)]);
+}
 
-      const honk = new Audio("https://www.soundjay.com/button/beep-07.wav");
-      honk.play();
+function lastGame() {
+  const last = localStorage.getItem("lastGame");
+  if (last) launch(last);
+  else alert("No last game. You are chaos-less.");
+}
 
-      btn.classList.add("launching");
+search.addEventListener("input", e =>
+  render(e.target.value.toLowerCase())
+);
 
-      setTimeout(() => {
-        window.location.href = value;
-      }, 1600);
-    }
-  </script>
+search.addEventListener("keydown", e => {
+  if (e.key === "Enter") {
+    const first = document.querySelector(".game");
+    if (first) first.click();
+  }
+});
+
+render();
+</script>
 
 </body>
 </html>

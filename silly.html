@@ -58,27 +58,79 @@
   </style>
 </head>
 <body>
+
   <h1>🎉 Silly Project Selector 🎲</h1>
 
   <select id="projectSelect">
     <option value="">-- Choose your chaos --</option>
-    <option value="Silly things/buttongame.html">try me</option>
-    <option value="Silly things/result.html">shockwave</option>
-    <option value="Silly things\EaglercraftX_1.8.html">EaglercraftX 1.8</option>
-    <option value="Silly things/clicker.html">Normal clicker game</option>
-    <option value="Silly things/yohohoio/index.html">Yohoho.io</option>
-    <option value="Silly things/bitlife/index.html">Bitlife</option>
-    <option value="Silly things/cell-machine/index.html">Cell machine</option>
-    <option value="Silly things/motox3m/index.html">MotoX3m</option>
-    <option value="Silly things/Space.html">space game</option>
   </select>
 
   <br>
   <button id="launchBtn" onclick="goToProject()">Launch!</button>
 
   <script>
+    const projects = [
+      "Silly things/buttongame.html",
+      "Silly things/result.html",
+      "Silly things/EaglercraftX_1.8.html",
+      "Silly things/clicker.html",
+      "Silly things/yohohoio/index.html",
+      "Silly things/bitlife/index.html",
+      "Silly things/cell-machine/index.html",
+      "Silly things/motox3m/index.html",
+      "Silly things/Space.html",
+      "Silly things/slope/index.html",
+      "Silly things/ropepolice/index.html",
+      "Silly things/retrobowl/index.html",
+      "Silly things/motox3m-winter/index.html",
+      "Silly things/motox3m-spooky/index.html",
+      "Silly things/motox3m-pool/index.html",
+      "Silly things/kittencannon/index.html",
+      "Silly things/interactivebuddy/index.html",
+      "Silly things/geometrydash/index.html",
+      "Silly things/flappy-bird/index.html",
+      "Silly things/finalearth2/index.html",
+      "Silly things/exo/index.html",
+      "Silly things/ducklife1/index.html",
+      "Silly things/ducklife2/index.html",
+      "Silly things/ducklife3/index.html",
+      "Silly things/draw-the-hill/index.html",
+      "Silly things/doodle-jump/index.html",
+      "Silly things/dogeminer/index.html",
+      "Silly things/death-run-3d/index.html",
+      "Silly things/deal-or-no-deal/index.html",
+      "Silly things/chrome-dino/index.html",
+      "Silly things/among-us/index.html",
+      "Silly things/avalanche/index.html",
+      "Silly things/backrooms/index.html",
+      "Silly things/basketball-stars/index.html",
+      "Silly things/bloonstd2/index.html"
+    ];
+
+    const select = document.getElementById("projectSelect");
+
+    projects.forEach(path => {
+      const parts = path.split("/");
+      let name = parts.at(-1);
+
+      if (name.toLowerCase() === "index.html") {
+        name = parts.at(-2);
+      } else {
+        name = name.replace(".html", "");
+      }
+
+      name = name
+        .replace(/[-_]/g, " ")
+        .replace(/\b\w/g, c => c.toUpperCase());
+
+      const option = document.createElement("option");
+      option.value = path;
+      option.textContent = name;
+
+      select.appendChild(option);
+    });
+
     function goToProject() {
-      const select = document.getElementById("projectSelect");
       const value = select.value;
       const btn = document.getElementById("launchBtn");
 
@@ -92,11 +144,11 @@
 
       btn.classList.add("launching");
 
-      // wait for the animation, then launch!
       setTimeout(() => {
         window.location.href = value;
-      }, 1600); // wait until button exits
+      }, 1600);
     }
   </script>
+
 </body>
 </html>

@@ -1,32 +1,26 @@
 <!DOCTYPE html>
-<html>
-    <head>
-      <style>
-        /* Hide all system cursors globally */
-        * {
-          cursor: none !important;
-        }
-      
-        .custom-cursor {
-          position: fixed;
-          top: 0;
-          left: 0;
-          width: 20px;
-          height: 20px;
-          border-radius: 50%;
-          background: rgba(0, 255, 0, 0.7);
-          pointer-events: none;
-          transform: translate(-50%, -50%);
-          transition: width 0.2s ease, height 0.2s ease, background 0.2s ease;
-          z-index: 9999;
-          mix-blend-mode: difference;
-        }
-      
-        .custom-cursor {
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Soggymalk32.github.io</title>
+
+<style>
+/* --- Custom Cursor --- */
+* { cursor: none !important; }
+
+.custom-cursor {
+  position: fixed;
+  top: 0;
+  left: 0;
   width: 16px;
   height: 16px;
+  border-radius: 50%;
   background: rgba(0, 255, 0, 0.7);
-  /* ... rest is the same */
+  pointer-events: none;
+  transform: translate(-50%, -50%);
+  transition: width 0.2s ease, height 0.2s ease, background 0.2s ease;
+  z-index: 9999;
+  mix-blend-mode: difference;
 }
 
 .custom-cursor.grow {
@@ -35,233 +29,205 @@
   background: rgba(0, 255, 0, 0.4);
 }
 
-      </style>
-      
-      <div class="custom-cursor" id="customCursor"></div>
-      
-      <script>
-        const cursor = document.getElementById('customCursor');
-      
-        // Make it follow smoothly
-        let mouseX = 0, mouseY = 0;
-        let currentX = 0, currentY = 0;
-      
-        document.addEventListener('mousemove', (e) => {
-          mouseX = e.clientX;
-          mouseY = e.clientY;
-        });
-      
-        function animateCursor() {
-          currentX += (mouseX - currentX) * 0.2;
-          currentY += (mouseY - currentY) * 0.2;
-          cursor.style.left = currentX + 'px';
-          cursor.style.top = currentY + 'px';
-          requestAnimationFrame(animateCursor);
-        }
-      
-        animateCursor();
-      
-        // Apply hover grow effect to interactive elements
-        function addHoverListeners() {
-          const hoverables = document.querySelectorAll('.box, button, a, input, textarea, label');
-          hoverables.forEach(el => {
-            el.addEventListener('mouseenter', () => cursor.classList.add('grow'));
-            el.addEventListener('mouseleave', () => cursor.classList.remove('grow'));
-          });
-        }
-      
-        // Run after DOM is loaded
-        window.addEventListener('DOMContentLoaded', addHoverListeners);
-      </script>
-      
-        <style>
-            body {
-              background: black;
-              color: #fff;
-              font-family: 'Courier New', monospace;
-              animation: flicker 2s infinite;
-              overflow: hidden;
-              position: relative;
-            }
-          
-            /* Scanlines overlay */
-            .vhs-overlay::before {
-              content: "";
-              position: fixed;
-              top: 0; left: 0;
-              width: 100%; height: 100%;
-              background: repeating-linear-gradient(
-                to bottom,
-                rgba(255,255,255,0.02),
-                rgba(255,255,255,0.02) 1px,
-                transparent 1px,
-                transparent 2px
-              );
-              pointer-events: none;
-              z-index: 1000;
-            }
-          
-            /* Glitch flicker */
-            @keyframes flicker {
-              0%, 100% { opacity: 1; }
-              49% { opacity: 0.95; }
-              50% { opacity: 1; }
-              51% { opacity: 0.97; }
-              52% { opacity: 0.9; }
-            }
-          
-            /* Color fringing / chromatic aberration */
-            .vhs-text {
-              text-shadow:
-                1px 0 red,
-                -1px 0 blue;
-            }
-          
-            /* Add VHS tape jitter lines */
-            .jitter {
-              animation: jitter 0.1s infinite;
-            }
-          
-            @keyframes jitter {
-              0% { transform: translateX(0); }
-              25% { transform: translateX(-1px); }
-              50% { transform: translateX(1px); }
-              75% { transform: translateX(-1px); }
-              100% { transform: translateX(0); }
-            }
-          </style>
-        <style>
-            
-          body { background-color: black;}
-          .flicker-neon {
-      color: white;
-      text-shadow:
-        0 0 5px #0f0,
-        0 0 10px #0f0,
-        0 0 20px #0f0,
-        0 0 40px #0f0,
-        0 0 80px #0f0;
-      animation: flicker 2s infinite;
-      font-family: monospace, sans-serif;
-      background-color: black;
-    }
+/* --- Body & VHS Overlay --- */
+body {
+  margin: 0;
+  padding: 0;
+  background: black;
+  color: #fff;
+  font-family: 'Courier New', monospace;
+  overflow: hidden;
+  position: relative;
+  animation: flicker 2s infinite;
+}
 
-    @keyframes flicker {
-      0%, 100% {
-        color: white;
-        text-shadow:
-          0 0 5px #0f0,
-          0 0 10px #0f0,
-          0 0 20px #0f0,
-          0 0 40px #0f0,
-          0 0 80px #0f0;
-      }
-      5%, 14%, 30%, 70% {
-        color: rgb(8, 32, 2);
-        text-shadow: none;
-      }
-      10%, 20%, 35%, 85% {
-        color: white;
-        text-shadow:
-          0 0 10px #0f0,
-          0 0 20px #0f0;
-      }
-      50% {
-        color: white;
-        text-shadow:
-          0 0 15px #0f0,
-          0 0 30px #0f0;
-      }
-    }
+.vhs-overlay::before {
+  content: "";
+  position: fixed;
+  top: 0; left: 0;
+  width: 100%; height: 100%;
+  background: repeating-linear-gradient(
+    to bottom,
+    rgba(255,255,255,0.02),
+    rgba(255,255,255,0.02) 1px,
+    transparent 1px,
+    transparent 2px
+  );
+  pointer-events: none;
+  z-index: 1000;
+}
 
-    /* Optional randomness on multiple elements */
-    .flicker-neon:nth-child(2n) { animation-delay: 0.13s; }
-    .flicker-neon:nth-child(3n) { animation-delay: 0.27s; }
-    .flicker-neon:nth-child(4n) { animation-delay: 0.42s; }
-      
-      </style>
-      </head>
-      
-      
-    <body>          
-        <h1 style="text-align: center;" style="font-family: 'Gill Sans', 'Gill Sans MT', Calibri, 'Trebuchet MS', sans-serif;"    class="vhs-text jitter, flicker-neon">Welcome to my website</h1>
-        <body>
-          <div class="box-container">
-            <div class="box" onclick="fadeToPage('aboutme.html')">About Me</div>
-            <div class="box" onclick="fadeToPage('projects.html')">School Projects</div>
-            <div class="box" onclick="fadeToPage('gallery.html')">Gallery</div>
-            <div class="box" onclick="fadeToPage('silly.html')">Silly things</div>
-            <div class="box" onclick="fadeToPage('extras.html')">Extras</div>
-            <div class="box" onclick="fadeToPage('hidden.html')">Secret Page</div>
-          </div>
-        
-          <div id="fade" class="fade-screen"></div>
-        
-          <style>
-            html, body {
-              margin: 0;
-              padding: 0;
-              height: 100%;
-              background: black;
-              overflow-y: auto; /* Enable vertical scroll */
-            }
-        
-            .box-container {
-              display: flex;
-              flex-wrap: wrap;
-              justify-content: center;
-              gap: 50px;
-              max-width: 1000px;
-              margin: 60px auto;
-              padding-bottom: 60px;
-            }
-        
-            .box {
-              flex: 0 0 calc(50% - 50px); /* Two per row */
-              box-sizing: border-box;
-              padding: 120px 120px;
-              background: #111;
-              border: 2px solid #0f0;
-              box-shadow: 0 0 10px #0f0;
-              color: white;
-              cursor: pointer;
-              transition: transform 0.3s;
-              font-family: 'Orbitron', sans-serif;
-              text-align: center;
-            }
-        
-            .box:hover {
-              transform: scale(1.1);
-            }
-        
-            .fade-screen {
-              position: fixed;
-              top: -100%;
-              left: 0;
-              width: 100%;
-              height: 100%;
-              background: black;
-              z-index: 9999;
-              transition: top 0.8s ease;
-            }
-        
-            .fade-screen.active {
-              top: 0;
-            }
-          </style>
-        
-          <script>
-            function fadeToPage(url) {
-              const fade = document.getElementById("fade");
-              fade.classList.add("active");
-              setTimeout(() => {
-                window.location.href = url;
-              }, 800);
-            }
-          </script>
-        </body>
-        
-        
-    
-    
+@keyframes flicker {
+  0%,100%{opacity:1;}
+  49%{opacity:0.95;}
+  50%{opacity:1;}
+  51%{opacity:0.97;}
+  52%{opacity:0.9;}
+}
+
+/* VHS Text Glitch */
+.vhs-text {
+  text-shadow: 1px 0 red, -1px 0 blue;
+}
+
+/* Jitter animation */
+.jitter { animation: jitter 0.1s infinite; }
+@keyframes jitter {
+  0% { transform: translateX(0); }
+  25% { transform: translateX(-1px); }
+  50% { transform: translateX(1px); }
+  75% { transform: translateX(-1px); }
+  100% { transform: translateX(0); }
+}
+
+/* Flicker neon text */
+.flicker-neon {
+  color: white;
+  text-shadow:
+    0 0 5px #0f0,
+    0 0 10px #0f0,
+    0 0 20px #0f0,
+    0 0 40px #0f0,
+    0 0 80px #0f0;
+  animation: flicker 2s infinite;
+  font-family: monospace, sans-serif;
+  background-color: black;
+}
+
+.flicker-neon:nth-child(2n){ animation-delay:0.13s; }
+.flicker-neon:nth-child(3n){ animation-delay:0.27s; }
+.flicker-neon:nth-child(4n){ animation-delay:0.42s; }
+
+/* --- Boxes --- */
+.box-container {
+  display: flex;
+  flex-wrap: wrap;
+  justify-content: center;
+  gap: 50px;
+  max-width: 1000px;
+  margin: 60px auto;
+  padding-bottom: 60px;
+}
+
+.box {
+  flex: 0 0 calc(50% - 50px);
+  box-sizing: border-box;
+  padding: 120px;
+  background: #111;
+  border: 2px solid #0f0;
+  box-shadow: 0 0 10px #0f0;
+  color: white;
+  cursor: pointer;
+  transition: transform 0.3s;
+  font-family: 'Orbitron', sans-serif;
+  text-align: center;
+}
+
+.box:hover { transform: scale(1.1); }
+
+.fade-screen {
+  position: fixed;
+  top: -100%;
+  left: 0;
+  width: 100%;
+  height: 100%;
+  background: black;
+  z-index: 9999;
+  transition: top 0.8s ease;
+}
+
+/* --- Jumpscare Overlay --- */
+#jumpscareOverlay {
+  display: none;
+  position: fixed;
+  top:0;
+  left:0;
+  width:100vw;
+  height:100vh;
+  background:black;
+  z-index:10000;
+  justify-content:center;
+  align-items:center;
+}
+#jumpscareOverlay img { max-width:100%; max-height:100%; }
+</style>
+
+</head>
+<body>
+
+<!-- Custom Cursor -->
+<div class="custom-cursor" id="customCursor"></div>
+
+<!-- Heading -->
+<h1 class="vhs-text jitter flicker-neon" style="text-align:center;">
+  Welcome to my website
+</h1>
+
+<!-- Boxes -->
+<div class="box-container">
+  <div class="box" onclick="fadeToPage('aboutme.html')">About Me</div>
+  <div class="box" onclick="fadeToPage('projects.html')">School Projects</div>
+  <div class="box" onclick="fadeToPage('gallery.html')">Gallery</div>
+  <div class="box" onclick="fadeToPage('silly.html')">Silly things</div>
+  <div class="box" onclick="fadeToPage('extras.html')">Extras</div>
+  <div class="box" onclick="fadeToPage('hidden.html')">Secret Page</div>
+</div>
+
+<!-- Fade Screen -->
+<div id="fade" class="fade-screen"></div>
+
+<!-- Jumpscare Overlay -->
+<div id="jumpscareOverlay">
+  <img id="jumpscareImg" src="https://tse1.mm.bing.net/th/id/OIP.PEWgBBgONVwcRi8dSVpeIAHaHa?o=7&cb=defcachec2rm=3&rs=1&pid=ImgDetMain&o=7&rm=3" alt="Jumpscare">
+  <audio id="jumpscareAudio" src="https://www.myinstants.com/media/sounds/creepy-scream.mp3"></audio>
+</div>
+
+<!-- Scripts -->
+<script src="https://js.pusher.com/8.2/pusher.min.js"></script>
+<script>
+// --- Cursor ---
+const cursor = document.getElementById('customCursor');
+let mouseX=0, mouseY=0, currentX=0, currentY=0;
+document.addEventListener('mousemove', e=>{ mouseX=e.clientX; mouseY=e.clientY; });
+function animateCursor(){ 
+  currentX += (mouseX-currentX)*0.2;
+  currentY += (mouseY-currentY)*0.2;
+  cursor.style.left=currentX+'px';
+  cursor.style.top=currentY+'px';
+  requestAnimationFrame(animateCursor);
+}
+animateCursor();
+
+// Hover grow
+function addHoverListeners(){
+  document.querySelectorAll('.box, button, a, input, textarea, label').forEach(el=>{
+    el.addEventListener('mouseenter', ()=>cursor.classList.add('grow'));
+    el.addEventListener('mouseleave', ()=>cursor.classList.remove('grow'));
+  });
+}
+window.addEventListener('DOMContentLoaded', addHoverListeners);
+
+// --- Page fade ---
+function fadeToPage(url){
+  const fade=document.getElementById('fade');
+  fade.classList.add('active');
+  setTimeout(()=>{ window.location.href=url; }, 800);
+}
+
+// --- Jumpscare ---
+const pusher = new Pusher('c5084903d87f528f8aa4', { cluster: 'us2', forceTLS: true });
+const channel = pusher.subscribe('global-jumpscare');
+channel.bind('trigger-jumpscare', function(data){ showJumpscare(); });
+
+function showJumpscare(){
+  const overlay=document.getElementById('jumpscareOverlay');
+  const audio=document.getElementById('jumpscareAudio');
+  overlay.style.display='flex';
+  audio.currentTime=0;
+  audio.play();
+  setTimeout(()=>{ overlay.style.display='none'; audio.pause(); }, 3000);
+}
+</script>
+
+</body>
 </html>

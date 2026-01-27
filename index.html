@@ -150,6 +150,29 @@ body {
   align-items:center;
 }
 #jumpscareOverlay img { max-width:100%; max-height:100%; }
+
+/* --- Admin Menu --- */
+#adminMenu {
+  display: none;
+  position: fixed;
+  top: 10%;
+  right: 10%;
+  width: 200px;
+  padding: 20px;
+  background: #111;
+  border: 2px solid #0f0;
+  box-shadow: 0 0 10px #0f0;
+  z-index: 10001;
+  text-align: center;
+  flex-direction: column;
+}
+#adminMenu button {
+  padding:10px;
+  font-family: monospace;
+  font-size: 16px;
+  cursor: pointer;
+  margin-top: 10px;
+}
 </style>
 
 </head>
@@ -180,6 +203,12 @@ body {
 <div id="jumpscareOverlay">
   <img id="jumpscareImg" src="https://tse1.mm.bing.net/th/id/OIP.PEWgBBgONVwcRi8dSVpeIAHaHa?o=7&cb=defcachec2rm=3&rs=1&pid=ImgDetMain&o=7&rm=3" alt="Jumpscare">
   <audio id="jumpscareAudio" src="https://www.myinstants.com/media/sounds/creepy-scream.mp3"></audio>
+</div>
+
+<!-- Hidden Admin Menu -->
+<div id="adminMenu">
+  <h3>Admin Menu</h3>
+  <button id="triggerJumpscareBtn">Jumpscare Everyone</button>
 </div>
 
 <!-- Scripts -->
@@ -227,6 +256,24 @@ function showJumpscare(){
   audio.play();
   setTimeout(()=>{ overlay.style.display='none'; audio.pause(); }, 3000);
 }
+
+// --- Admin Menu Toggle ---
+const adminMenu = document.getElementById('adminMenu');
+document.addEventListener('keydown', (e) => {
+  // Shift + J opens admin menu
+  if(e.shiftKey && e.key.toLowerCase() === 'j'){
+    adminMenu.style.display = adminMenu.style.display === 'flex' ? 'none' : 'flex';
+  }
+});
+
+// --- Admin Button Click ---
+document.getElementById('triggerJumpscareBtn').addEventListener('click', () => {
+  // For local testing (same page):
+  showJumpscare();
+
+  // For real-time across users, call your serverless endpoint:
+  // fetch('/.netlify/functions/jumpscare');
+});
 </script>
 
 </body>

@@ -1,0 +1,103 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<title>Grades - Rift Math</title>
+
+<style>
+body {
+  margin: 0;
+  font-family: system-ui;
+  background: #0b1020;
+  color: #eaf2ff;
+}
+
+.header {
+  padding: 20px;
+  border-bottom: 1px solid rgba(120,180,255,0.2);
+  background: rgba(10,15,30,0.9);
+}
+
+h1 {
+  margin: 0;
+  color: #7cc7ff;
+}
+
+.container {
+  padding: 20px;
+}
+
+table {
+  width: 100%;
+  border-collapse: collapse;
+  background: rgba(255,255,255,0.03);
+  border-radius: 10px;
+  overflow: hidden;
+}
+
+th, td {
+  padding: 14px;
+  text-align: left;
+  border-bottom: 1px solid rgba(120,180,255,0.1);
+}
+
+th {
+  color: #7cc7ff;
+  background: rgba(255,255,255,0.05);
+}
+
+.grade {
+  font-weight: bold;
+}
+
+.good { color: limegreen; }
+.mid { color: gold; }
+.bad { color: tomato; }
+</style>
+</head>
+
+<body>
+
+<div class="header">
+  <h1>📊 Grades</h1>
+</div>
+
+<div class="container">
+
+<table>
+  <tr>
+    <th>Assignment</th>
+    <th>Category</th>
+    <th>Score</th>
+  </tr>
+
+  <tr>
+    <td>Linear Equations Quiz</td>
+    <td>Quiz</td>
+    <td class="grade good">92%</td>
+  </tr>
+
+  <tr>
+    <td>Geometry Practice</td>
+    <td>Homework</td>
+    <td class="grade mid">78%</td>
+  </tr>
+
+  <tr>
+    <td>Algebra Test</td>
+    <td>Exam</td>
+    <td class="grade good">88%</td>
+  </tr>
+
+  <tr>
+    <td>Test Prep Set 1</td>
+    <td>Practice</td>
+    <td class="grade mid">81%</td>
+  </tr>
+
+</table>
+
+</div>
+
+</body>
+</html>

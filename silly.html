@@ -21,30 +21,28 @@ html, body {
   background: transparent;
 }
 
-/* ===== BACKGROUND ===== */
+/* ===== BACKGROUND (SPACE OVERHAUL) ===== */
 .bg {
   position: fixed;
   inset: -50%;
   z-index: -2;
   pointer-events: none;
+
   background:
-    repeating-linear-gradient(
-      135deg,
-      rgba(255,255,255,0.04) 0px,
-      rgba(255,255,255,0.04) 2px,
-      transparent 2px,
-      transparent 40px
-    ),
-    radial-gradient(circle at 30% 30%, #ff5fa222, transparent 40%),
-    radial-gradient(circle at 70% 70%, #38bdf822, transparent 40%),
-    linear-gradient(120deg, #0f0f1a, #1a1a2e);
-  background-size: 300px 300px, 100% 100%, 100% 100%, 100% 100%;
-  animation: bgScroll 40s linear infinite;
+    radial-gradient(circle at 20% 30%, rgba(120,180,255,0.18), transparent 45%),
+    radial-gradient(circle at 80% 70%, rgba(180,90,255,0.12), transparent 50%),
+    radial-gradient(circle at 50% 50%, rgba(255,255,255,0.04), transparent 60%),
+    linear-gradient(180deg, #05060a, #0a0f1f, #05060a);
+
+  background-size: 100% 100%;
+  animation: bgMove 60s linear infinite;
   transform: translate(var(--mx,0px), var(--my,0px));
 }
 
-@keyframes bgScroll {
-  to { transform: translate(300px,300px); }
+/* subtle drifting galaxy */
+@keyframes bgMove {
+  0% { transform: translate(0,0); }
+  100% { transform: translate(120px,80px); }
 }
 
 /* ===== PARTICLES ===== */
@@ -55,29 +53,31 @@ html, body {
   z-index: -1;
 }
 
-.particle, .dust {
-  position: absolute;
-  border-radius: 50%;
-}
-
+/* stars */
 .particle {
+  position: absolute;
   width: 2px;
   height: 2px;
-  background: white;
-  opacity: .35;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.9);
+  opacity: .6;
+  box-shadow: 0 0 6px rgba(180,220,255,0.6);
   animation: drift linear infinite;
 }
 
 @keyframes drift {
   from { transform: translate(0,0); opacity: 0; }
-  10% { opacity: .35; }
-  to { transform: translate(240px,220px); opacity: 0; }
+  10% { opacity: .7; }
+  to { transform: translate(260px,180px); opacity: 0; }
 }
 
+/* dust nebula particles */
 .dust {
-  width: 6px;
-  height: 6px;
-  background: radial-gradient(circle, rgba(255,255,255,.6), transparent 70%);
+  position: absolute;
+  width: 5px;
+  height: 5px;
+  border-radius: 50%;
+  background: radial-gradient(circle, rgba(120,180,255,0.7), transparent 70%);
   opacity: .25;
   animation: dustFloat linear infinite;
 }
@@ -85,7 +85,7 @@ html, body {
 @keyframes dustFloat {
   from { transform: translate(0,0); opacity: 0; }
   10% { opacity: .25; }
-  to { transform: translate(60px,-200px); opacity: 0; }
+  to { transform: translate(80px,-240px); opacity: 0; }
 }
 
 /* ===== LAYOUT ===== */
@@ -100,14 +100,16 @@ body {
   width: 420px;
   padding: 22px;
   border-radius: 26px;
-  background: rgba(255,255,255,.92);
-  backdrop-filter: blur(8px);
-  box-shadow: 0 25px 50px rgba(0,0,0,.35);
+  background: rgba(10,12,20,.75);
+  backdrop-filter: blur(10px);
+  box-shadow: 0 25px 60px rgba(0,0,0,.6);
+  border: 1px solid rgba(120,180,255,0.15);
 }
 
 h1 {
   margin: 0 0 14px;
-  color: var(--pink);
+  color: #7cc7ff;
+  text-shadow: 0 0 10px rgba(120,180,255,0.6);
   transform: rotate(-2deg);
 }
 
@@ -116,12 +118,14 @@ input {
   padding: 12px;
   font-size: 1.05em;
   border-radius: 14px;
-  border: 3px dashed var(--pink);
+  border: 2px solid rgba(120,180,255,0.4);
   outline: none;
   margin-bottom: 12px;
+  background: rgba(255,255,255,0.05);
+  color: white;
 }
 
-/* ===== GAME LIST (MINIMAL) ===== */
+/* ===== GAME LIST ===== */
 .list {
   max-height: 260px;
   overflow-y: auto;
@@ -132,7 +136,7 @@ input {
   width: 6px;
 }
 .list::-webkit-scrollbar-thumb {
-  background: rgba(0,0,0,.15);
+  background: rgba(120,180,255,0.3);
   border-radius: 10px;
 }
 
@@ -144,6 +148,7 @@ input {
   font-weight: 600;
   border-radius: 10px;
   transition: background .15s, transform .15s;
+  color: #d6e9ff;
 }
 
 .game::before {
@@ -153,13 +158,14 @@ input {
   top: 20%;
   width: 4px;
   height: 60%;
-  background: var(--pink);
+  background: #7cc7ff;
   border-radius: 10px;
   opacity: 0;
+  box-shadow: 0 0 10px #7cc7ff;
 }
 
 .game:hover {
-  background: rgba(0,0,0,.06);
+  background: rgba(120,180,255,0.08);
   transform: translateX(4px);
 }
 
@@ -167,7 +173,7 @@ input {
   opacity: 1;
 }
 
-/* ===== OUTLINED BUTTONS ===== */
+/* ===== BUTTONS ===== */
 .buttons {
   display: flex;
   gap: 12px;
@@ -183,28 +189,24 @@ button {
   cursor: pointer;
 
   background: transparent;
-  border: 3px solid currentColor;
-  color: #111;
+  border: 2px solid rgba(120,180,255,0.6);
+  color: #d6e9ff;
 
   transition: transform .12s, box-shadow .12s, background .12s;
 }
 
-.random { color: limegreen; }
-.last { color: deepskyblue; }
+.random { color: #7CFF9E; }
+.last { color: #7cc7ff; }
 
 button:hover {
-  background: rgba(255,255,255,.35);
-  box-shadow:
-    0 0 0 4px rgba(0,0,0,.06),
-    0 0 18px currentColor;
+  background: rgba(120,180,255,0.1);
+  box-shadow: 0 0 18px rgba(120,180,255,0.5);
   transform: translateY(-2px);
 }
 
 button:active {
   transform: translateY(1px);
-  box-shadow:
-    0 0 0 2px rgba(0,0,0,.1),
-    0 0 8px currentColor;
+  box-shadow: 0 0 8px rgba(120,180,255,0.4);
 }
 </style>
 </head>
@@ -225,14 +227,12 @@ button:active {
 </div>
 
 <script>
-/* ===== PARALLAX ===== */
 const bg = document.getElementById("bg");
 addEventListener("mousemove", e => {
   bg.style.setProperty("--mx", (e.clientX / innerWidth - .5) * 15 + "px");
   bg.style.setProperty("--my", (e.clientY / innerHeight - .5) * 15 + "px");
 });
 
-/* ===== PARTICLES ===== */
 const particles = document.getElementById("particles");
 
 for (let i=0;i<40;i++) {
@@ -255,7 +255,6 @@ for (let i=0;i<25;i++) {
   particles.appendChild(d);
 }
 
-/* ===== GAME LOGIC ===== */
 let games=[];
 const listEl=document.getElementById("gameList");
 const search=document.getElementById("search");

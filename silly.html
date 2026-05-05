@@ -215,8 +215,8 @@ button:active {
 <div class="particles" id="particles"></div>
 
 <div class="launcher">
-  <h1>⚡️ CHAOS GAME LAUNCHER</h1>
-  <input id="search" placeholder="Search your doom..." autocomplete="off">
+  <h1>⚡️ Rift</h1>
+  <input id="search" placeholder="You Know How To Use A Search Bar Right?" autocomplete="off">
   <div class="list" id="gameList"></div>
   <div class="buttons">
     <button class="random" onclick="randomGame()">🎲 Random</button>
@@ -294,7 +294,7 @@ function randomGame(){
 
 function lastGame(){
   const l=localStorage.getItem("lastGame");
-  l?launch(l):alert("Chaos has no memory yet.");
+  l?launch(l):alert("Rift has no memory yet.");
 }
 
 search.addEventListener("input",e=>render(e.target.value.toLowerCase()));

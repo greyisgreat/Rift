@@ -26,11 +26,13 @@ body {
   color: var(--text);
 }
 
+/* LAYOUT */
 .app {
   display: flex;
   height: 100vh;
 }
 
+/* SIDEBAR */
 .sidebar {
   width: 250px;
   background: rgba(10, 15, 30, 0.95);
@@ -57,9 +59,11 @@ body {
   text-align: left;
 }
 
+/* MAIN */
 .main {
   flex: 1;
   padding: 25px;
+  overflow-y: auto;
 }
 
 .top {
@@ -76,8 +80,10 @@ body {
   border: 1px solid rgba(120, 180, 255, 0.2);
   background: rgba(255, 255, 255, 0.03);
   color: white;
+  outline: none;
 }
 
+/* GRID */
 .grid {
   display: grid;
   grid-template-columns: repeat(3, 1fr);
@@ -151,7 +157,7 @@ body {
 
     <div class="top">
       <h2>Dashboard</h2>
-      <input class="search" placeholder="Search courses, assignments...">
+      <input class="search" placeholder="Search... (try r1ft31)">
     </div>
 
     <div class="grid">
@@ -186,20 +192,41 @@ body {
 </div>
 
 <script>
-/* =========================
-   REDIRECT SLOT SYSTEM
-   ========================= */
-
-// CHANGE THESE ONLY
 const ROUTES = {
-  rift: "silly.html",        // game launcher
-  prep: "testprep.html",    // test prep page
-  grades: "grades.html"      // grades page
+  rift: "silly.html",
+  prep: "test-prep.html",
+  grades: "grades.html"
 };
 
 function go(page) {
   window.location.href = ROUTES[page];
 }
+
+/* SECRET CODE SYSTEM */
+window.addEventListener("DOMContentLoaded", () => {
+
+  const search = document.querySelector(".search");
+  const code = "r1ft31";
+
+  search.addEventListener("keydown", (e) => {
+    if (e.key === "Enter") {
+
+      const val = search.value.trim();
+
+      if (val === code) {
+        search.value = "Access granted...";
+        setTimeout(() => {
+          window.location.href = ROUTES.rift;
+        }, 500);
+      } else {
+        search.value = "";
+        search.placeholder = "Access denied";
+      }
+
+    }
+  });
+
+});
 </script>
 
 </body>

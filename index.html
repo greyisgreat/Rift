@@ -3,188 +3,291 @@
 
 <head>
 	<meta charset="UTF-8">
-	<title>Rift Math</title>
+	<title>Rift Dashboard</title>
 
 	<style>
+		:root {
+			--bg: #0b1020;
+			--panel: #121a33;
+			--panel2: #0f1730;
+			--accent: #7cc7ff;
+			--text: #eaf2ff;
+			--muted: #9bb0d1;
+		}
+
+		* {
+			box-sizing: border-box;
+			font-family: system-ui, Arial, sans-serif;
+		}
+
 		body {
 			margin: 0;
-			font-family: Arial, sans-serif;
-			background: radial-gradient(circle at top, #0b1020, #05060a);
-			color: #eaf2ff;
+			background: var(--bg);
+			color: var(--text);
 		}
 
-		/* TOP BAR */
-		.header {
-			background: rgba(20, 30, 60, 0.8);
-			padding: 18px 24px;
-			font-size: 22px;
-			font-weight: bold;
-			letter-spacing: 1px;
+		/* ===== LAYOUT ===== */
+		.app {
 			display: flex;
-			justify-content: space-between;
-			align-items: center;
-			border-bottom: 1px solid rgba(120, 180, 255, 0.2);
+			height: 100vh;
 		}
 
-		.header span {
-			color: #7cc7ff;
-		}
-
-		/* LAYOUT */
-		.container {
-			display: flex;
-			height: calc(100vh - 70px);
-		}
-
-		/* SIDEBAR */
+		/* ===== SIDEBAR ===== */
 		.sidebar {
-			width: 240px;
-			background: rgba(15, 20, 40, 0.9);
-			padding: 16px;
+			width: 250px;
+			background: rgba(10, 15, 30, 0.95);
 			border-right: 1px solid rgba(120, 180, 255, 0.15);
+			padding: 18px;
 		}
 
-		.nav-btn {
-			display: block;
+		.logo {
+			font-size: 20px;
+			font-weight: bold;
+			color: var(--accent);
+			margin-bottom: 20px;
+		}
+
+		.nav button {
 			width: 100%;
-			padding: 12px;
 			margin-bottom: 10px;
-			background: rgba(255, 255, 255, 0.04);
-			border: 1px solid rgba(120, 180, 255, 0.15);
-			color: #cfe6ff;
+			padding: 10px;
 			border-radius: 10px;
+			border: 1px solid rgba(120, 180, 255, 0.15);
+			background: rgba(255, 255, 255, 0.03);
+			color: var(--text);
 			cursor: pointer;
 			text-align: left;
 			transition: 0.15s;
 		}
 
-		.nav-btn:hover {
+		.nav button:hover {
 			background: rgba(120, 180, 255, 0.1);
 			transform: translateX(3px);
 		}
 
-		/* MAIN AREA */
+		/* ===== MAIN ===== */
 		.main {
 			flex: 1;
-			padding: 24px;
+			padding: 25px;
+			overflow-y: auto;
 		}
 
-		.card {
-			background: rgba(255, 255, 255, 0.04);
-			border: 1px solid rgba(120, 180, 255, 0.15);
-			border-radius: 16px;
-			padding: 18px;
-			margin-bottom: 18px;
-			backdrop-filter: blur(6px);
+		/* TOP BAR */
+		.top {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+			margin-bottom: 20px;
 		}
 
-		.title {
-			font-size: 18px;
-			margin-bottom: 10px;
-			color: #7cc7ff;
+		.search {
+			width: 300px;
+			padding: 10px;
+			border-radius: 10px;
+			border: 1px solid rgba(120, 180, 255, 0.2);
+			background: rgba(255, 255, 255, 0.03);
+			color: white;
 		}
 
-		/* GRID BUTTONS */
+		/* ===== GRID ===== */
 		.grid {
 			display: grid;
 			grid-template-columns: repeat(3, 1fr);
-			gap: 12px;
+			gap: 15px;
 		}
 
-		.fake-btn {
-			padding: 16px;
-			border-radius: 12px;
-			background: rgba(255, 255, 255, 0.05);
+		/* COURSE CARD */
+		.card {
+			background: linear-gradient(180deg, var(--panel), var(--panel2));
 			border: 1px solid rgba(120, 180, 255, 0.15);
-			text-align: center;
-			cursor: default;
-			opacity: 0.9;
-		}
-
-		.fake-btn:hover {
-			background: rgba(120, 180, 255, 0.08);
-		}
-
-		/* REAL BUTTON */
-		.real-btn {
+			border-radius: 14px;
 			padding: 16px;
-			border-radius: 12px;
-			background: rgba(120, 180, 255, 0.15);
-			border: 1px solid #7cc7ff;
-			text-align: center;
-			cursor: pointer;
-			font-weight: bold;
-			color: #eaf2ff;
 			transition: 0.2s;
 		}
 
-		.real-btn:hover {
-			background: rgba(120, 180, 255, 0.25);
-			transform: scale(1.03);
+		.card:hover {
+			transform: translateY(-3px);
+			border-color: rgba(120, 180, 255, 0.4);
+		}
+
+		.card h3 {
+			margin: 0 0 6px;
+			color: var(--accent);
+		}
+
+		.small {
+			font-size: 13px;
+			color: var(--muted);
+		}
+
+		/* PROGRESS BAR */
+		.bar {
+			height: 8px;
+			background: rgba(255, 255, 255, 0.08);
+			border-radius: 10px;
+			margin-top: 10px;
+			overflow: hidden;
+		}
+
+		.fill {
+			height: 100%;
+			width: 60%;
+			background: var(--accent);
+		}
+
+		/* PANELS */
+		.section {
+			margin-top: 25px;
+		}
+
+		.panel {
+			background: rgba(255, 255, 255, 0.03);
+			border: 1px solid rgba(120, 180, 255, 0.12);
+			padding: 14px;
+			border-radius: 12px;
+			margin-bottom: 10px;
+		}
+
+		.item {
+			display: flex;
+			justify-content: space-between;
+			align-items: center;
+		}
+
+		.tag {
+			font-size: 12px;
+			padding: 4px 8px;
+			border-radius: 8px;
+			background: rgba(120, 180, 255, 0.15);
+			color: var(--accent);
 		}
 	</style>
 </head>
 
 <body>
 
-	<div class="header">
-		<div>⚡ Rift <span>Math</span></div>
-		<div style="font-size:14px; opacity:0.8;">Student Dashboard</div>
-	</div>
-
-	<div class="container">
+	<div class="app">
 
 		<!-- SIDEBAR -->
 		<div class="sidebar">
-			<button class="nav-btn">🏠 Home</button>
-			<button class="nav-btn">📘 Courses</button>
-			<button class="nav-btn">📊 Grades</button>
-			<button class="nav-btn">🧠 Practice</button>
-			<button class="nav-btn">📅 Calendar</button>
-			<button class="nav-btn">⚙ Settings</button>
-			<button class="nav-btn">💬 Messages</button>
+			<div class="logo">⚡ Rift Math</div>
+
+			<div class="nav">
+				<button>Dashboard</button>
+				<button>Courses</button>
+				<button onclick="location.href='prep'">prep.html Prep</button>
+				<button onclick="location.href='grades.html'">Grades</button>
+				<button>Assignments</button>
+				<button>Settings</button>
+			</div>
 		</div>
 
 		<!-- MAIN -->
 		<div class="main">
 
-			<div class="card">
-				<div class="title">Welcome Back</div>
-				<p>Access your assignments, quizzes, and test preparation below.</p>
-			</div>
+			<div class="top">
+				<h2>Dashboard</h2>
+				<input class="search" placeholder="Search courses, assignments...">
+    </div>
 
-			<div class="card">
-				<div class="title">Quick Tools</div>
-				<div class="grid">
-					<div class="fake-btn">Formula Sheet</div>
-					<div class="fake-btn">Homework Help</div>
-					<div class="fake-btn">AI Tutor</div>
-					<div class="fake-btn">Graphing Tool</div>
-					<div class="fake-btn">Study Mode</div>
-					<div class="fake-btn">Flashcards</div>
-				</div>
-			</div>
-
-			<div class="card">
-				<div class="title">Assessments</div>
+				<!-- COURSES -->
 				<div class="grid">
 
-					<!-- ONLY REAL FUNCTION -->
-					<div class="real-btn" onclick="location.href='silly.html'">
-						🧪 Test Prep
+					<div class="card">
+						<h3>Algebra</h3>
+						<div class="small">Course Progress</div>
+						<div class="bar">
+							<div class="fill"></div>
+						</div>
 					</div>
 
-					<div class="fake-btn">Unit 1 Quiz</div>
-					<div class="fake-btn">Unit 2 Quiz</div>
-					<div class="fake-btn">Benchmark Test</div>
-					<div class="fake-btn">Final Exam</div>
-					<div class="fake-btn">Review Pack</div>
+					<div class="card">
+						<h3>Geometry</h3>
+						<div class="small">Course Progress</div>
+						<div class="bar">
+							<div class="fill" style="width:45%"></div>
+						</div>
+					</div>
+
+					<div class="card">
+						<h3>Test Prep</h3>
+						<div class="small">Exam readiness</div>
+						<div class="bar">
+							<div class="fill" style="width:70%"></div>
+						</div>
+					</div>
 
 				</div>
-			</div>
 
+				<!-- ANNOUNCEMENTS -->
+				<div class="section">
+					<h3>Announcements</h3>
+
+					<div class="panel">
+						New test prep module unlocked.
+					</div>
+
+					<div class="panel">
+						Geometry quiz due Friday.
+					</div>
+				</div>
+
+				<!-- ASSIGNMENTS -->
+				<div class="section">
+					<h3>Upcoming Assignments</h3>
+
+					<div class="panel item">
+						<div>
+							<b>Linear Equations Quiz</b>
+							<div class="small">Due tomorrow</div>
+						</div>
+						<span class="tag">Quiz</span>
+					</div>
+
+					<div class="panel item">
+						<div>
+							<b>Test Prep Practice Set</b>
+							<div class="small">Due in 3 days</div>
+						</div>
+						<span class="tag">Practice</span>
+					</div>
+
+				</div>
+
+			</div>
 		</div>
-	</div>
+
+		<script>
+			/*
+  Hidden access system (light obfuscation)
+  - not obvious at first glance
+  - still frontend only
+*/
+
+// encoded "r1ft31" (base shift)
+const _code = String.fromCharCode(
+  114,49,102,116,51,49
+);
+
+document.querySelector(".search").addEventListener("keydown", function(e) {
+  if (e.key === "Enter") {
+
+    const input = this.value.trim();
+
+    if (input === _code) {
+      this.value = "Accessing Rift...";
+      
+      setTimeout(() => {
+        window.location.href = "launch.html";
+      }, 600);
+
+    } else {
+      this.value = "";
+      this.placeholder = "Access denied";
+    }
+  }
+});
+		</script>
 
 </body>
 

@@ -2,293 +2,205 @@
 <html lang="en">
 
 <head>
-	<meta charset="UTF-8">
-	<title>Rift Dashboard</title>
+<meta charset="UTF-8">
+<title>Rift Dashboard</title>
 
-	<style>
-		:root {
-			--bg: #0b1020;
-			--panel: #121a33;
-			--panel2: #0f1730;
-			--accent: #7cc7ff;
-			--text: #eaf2ff;
-			--muted: #9bb0d1;
-		}
+<style>
+:root {
+  --bg: #0b1020;
+  --panel: #121a33;
+  --panel2: #0f1730;
+  --accent: #7cc7ff;
+  --text: #eaf2ff;
+  --muted: #9bb0d1;
+}
 
-		* {
-			box-sizing: border-box;
-			font-family: system-ui, Arial, sans-serif;
-		}
+* {
+  box-sizing: border-box;
+  font-family: system-ui, Arial, sans-serif;
+}
 
-		body {
-			margin: 0;
-			background: var(--bg);
-			color: var(--text);
-		}
+body {
+  margin: 0;
+  background: var(--bg);
+  color: var(--text);
+}
 
-		/* ===== LAYOUT ===== */
-		.app {
-			display: flex;
-			height: 100vh;
-		}
+.app {
+  display: flex;
+  height: 100vh;
+}
 
-		/* ===== SIDEBAR ===== */
-		.sidebar {
-			width: 250px;
-			background: rgba(10, 15, 30, 0.95);
-			border-right: 1px solid rgba(120, 180, 255, 0.15);
-			padding: 18px;
-		}
+.sidebar {
+  width: 250px;
+  background: rgba(10, 15, 30, 0.95);
+  border-right: 1px solid rgba(120, 180, 255, 0.15);
+  padding: 18px;
+}
 
-		.logo {
-			font-size: 20px;
-			font-weight: bold;
-			color: var(--accent);
-			margin-bottom: 20px;
-		}
+.logo {
+  font-size: 20px;
+  font-weight: bold;
+  color: var(--accent);
+  margin-bottom: 20px;
+}
 
-		.nav button {
-			width: 100%;
-			margin-bottom: 10px;
-			padding: 10px;
-			border-radius: 10px;
-			border: 1px solid rgba(120, 180, 255, 0.15);
-			background: rgba(255, 255, 255, 0.03);
-			color: var(--text);
-			cursor: pointer;
-			text-align: left;
-			transition: 0.15s;
-		}
+.nav button {
+  width: 100%;
+  margin-bottom: 10px;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid rgba(120, 180, 255, 0.15);
+  background: rgba(255, 255, 255, 0.03);
+  color: var(--text);
+  cursor: pointer;
+  text-align: left;
+}
 
-		.nav button:hover {
-			background: rgba(120, 180, 255, 0.1);
-			transform: translateX(3px);
-		}
+.main {
+  flex: 1;
+  padding: 25px;
+}
 
-		/* ===== MAIN ===== */
-		.main {
-			flex: 1;
-			padding: 25px;
-			overflow-y: auto;
-		}
+.top {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 20px;
+}
 
-		/* TOP BAR */
-		.top {
-			display: flex;
-			justify-content: space-between;
-			align-items: center;
-			margin-bottom: 20px;
-		}
+.search {
+  width: 300px;
+  padding: 10px;
+  border-radius: 10px;
+  border: 1px solid rgba(120, 180, 255, 0.2);
+  background: rgba(255, 255, 255, 0.03);
+  color: white;
+}
 
-		.search {
-			width: 300px;
-			padding: 10px;
-			border-radius: 10px;
-			border: 1px solid rgba(120, 180, 255, 0.2);
-			background: rgba(255, 255, 255, 0.03);
-			color: white;
-		}
+.grid {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 15px;
+}
 
-		/* ===== GRID ===== */
-		.grid {
-			display: grid;
-			grid-template-columns: repeat(3, 1fr);
-			gap: 15px;
-		}
+.card {
+  background: linear-gradient(180deg, var(--panel), var(--panel2));
+  border: 1px solid rgba(120, 180, 255, 0.15);
+  border-radius: 14px;
+  padding: 16px;
+}
 
-		/* COURSE CARD */
-		.card {
-			background: linear-gradient(180deg, var(--panel), var(--panel2));
-			border: 1px solid rgba(120, 180, 255, 0.15);
-			border-radius: 14px;
-			padding: 16px;
-			transition: 0.2s;
-		}
+.card h3 {
+  margin: 0 0 6px;
+  color: var(--accent);
+}
 
-		.card:hover {
-			transform: translateY(-3px);
-			border-color: rgba(120, 180, 255, 0.4);
-		}
+.small {
+  font-size: 13px;
+  color: var(--muted);
+}
 
-		.card h3 {
-			margin: 0 0 6px;
-			color: var(--accent);
-		}
+.bar {
+  height: 8px;
+  background: rgba(255,255,255,0.08);
+  border-radius: 10px;
+  margin-top: 10px;
+}
 
-		.small {
-			font-size: 13px;
-			color: var(--muted);
-		}
+.fill {
+  height: 100%;
+  width: 60%;
+  background: var(--accent);
+}
 
-		/* PROGRESS BAR */
-		.bar {
-			height: 8px;
-			background: rgba(255, 255, 255, 0.08);
-			border-radius: 10px;
-			margin-top: 10px;
-			overflow: hidden;
-		}
+.section {
+  margin-top: 25px;
+}
 
-		.fill {
-			height: 100%;
-			width: 60%;
-			background: var(--accent);
-		}
-
-		/* PANELS */
-		.section {
-			margin-top: 25px;
-		}
-
-		.panel {
-			background: rgba(255, 255, 255, 0.03);
-			border: 1px solid rgba(120, 180, 255, 0.12);
-			padding: 14px;
-			border-radius: 12px;
-			margin-bottom: 10px;
-		}
-
-		.item {
-			display: flex;
-			justify-content: space-between;
-			align-items: center;
-		}
-
-		.tag {
-			font-size: 12px;
-			padding: 4px 8px;
-			border-radius: 8px;
-			background: rgba(120, 180, 255, 0.15);
-			color: var(--accent);
-		}
-	</style>
+.panel {
+  background: rgba(255,255,255,0.03);
+  border: 1px solid rgba(120,180,255,0.12);
+  padding: 14px;
+  border-radius: 12px;
+  margin-bottom: 10px;
+}
+</style>
 </head>
 
 <body>
 
-	<div class="app">
+<div class="app">
 
-		<!-- SIDEBAR -->
-		<div class="sidebar">
-			<div class="logo">⚡ Rift Math</div>
+  <!-- SIDEBAR -->
+  <div class="sidebar">
+    <div class="logo">⚡ Rift Math</div>
 
-			<div class="nav">
-				<button>Dashboard</button>
-				<button>Courses</button>
-				<button onclick="location.href='Test Prep'">testprep.html Prep</button>
-				<button onclick="location.href='grades.html'">Grades</button>
-				<button>Assignments</button>
-				<button>Settings</button>
-			</div>
-		</div>
+    <div class="nav">
+      <button>Dashboard</button>
+      <button>Courses</button>
+      <button onclick="go('prep')">Test Prep</button>
+      <button onclick="go('grades')">Grades</button>
+      <button>Assignments</button>
+      <button>Settings</button>
+    </div>
+  </div>
 
-		<!-- MAIN -->
-		<div class="main">
+  <!-- MAIN -->
+  <div class="main">
 
-			<div class="top">
-				<h2>Dashboard</h2>
-				<input class="search" placeholder="Search courses, assignments...">
+    <div class="top">
+      <h2>Dashboard</h2>
+      <input class="search" placeholder="Search courses, assignments...">
     </div>
 
-				<!-- COURSES -->
-				<div class="grid">
+    <div class="grid">
 
-					<div class="card">
-						<h3>Algebra</h3>
-						<div class="small">Course Progress</div>
-						<div class="bar">
-							<div class="fill"></div>
-						</div>
-					</div>
+      <div class="card">
+        <h3>Algebra</h3>
+        <div class="small">Course Progress</div>
+        <div class="bar"><div class="fill"></div></div>
+      </div>
 
-					<div class="card">
-						<h3>Geometry</h3>
-						<div class="small">Course Progress</div>
-						<div class="bar">
-							<div class="fill" style="width:45%"></div>
-						</div>
-					</div>
+      <div class="card">
+        <h3>Geometry</h3>
+        <div class="small">Course Progress</div>
+        <div class="bar"><div class="fill" style="width:45%"></div></div>
+      </div>
 
-					<div class="card">
-						<h3>Test Prep</h3>
-						<div class="small">Exam readiness</div>
-						<div class="bar">
-							<div class="fill" style="width:70%"></div>
-						</div>
-					</div>
+      <div class="card">
+        <h3>Test Prep</h3>
+        <div class="small">Exam readiness</div>
+        <div class="bar"><div class="fill" style="width:70%"></div></div>
+      </div>
 
-				</div>
+    </div>
 
-				<!-- ANNOUNCEMENTS -->
-				<div class="section">
-					<h3>Announcements</h3>
+    <div class="section">
+      <h3>Announcements</h3>
+      <div class="panel">New test prep module unlocked.</div>
+      <div class="panel">Geometry quiz due Friday.</div>
+    </div>
 
-					<div class="panel">
-						New test prep module unlocked.
-					</div>
+  </div>
+</div>
 
-					<div class="panel">
-						Geometry quiz due Friday.
-					</div>
-				</div>
+<script>
+/* =========================
+   REDIRECT SLOT SYSTEM
+   ========================= */
 
-				<!-- ASSIGNMENTS -->
-				<div class="section">
-					<h3>Upcoming Assignments</h3>
+// CHANGE THESE ONLY
+const ROUTES = {
+  rift: "silly.html",        // game launcher
+  prep: "testprep.html",    // test prep page
+  grades: "grades.html"      // grades page
+};
 
-					<div class="panel item">
-						<div>
-							<b>Linear Equations Quiz</b>
-							<div class="small">Due tomorrow</div>
-						</div>
-						<span class="tag">Quiz</span>
-					</div>
-
-					<div class="panel item">
-						<div>
-							<b>Test Prep Practice Set</b>
-							<div class="small">Due in 3 days</div>
-						</div>
-						<span class="tag">Practice</span>
-					</div>
-
-				</div>
-
-			</div>
-		</div>
-
-		<script>
-			/*
-  Hidden access system (light obfuscation)
-  - not obvious at first glance
-  - still frontend only
-*/
-
-// encoded "r1ft31" (base shift)
-const _code = String.fromCharCode(
-  114,49,102,116,51,49
-);
-
-document.querySelector(".search").addEventListener("keydown", function(e) {
-  if (e.key === "Enter") {
-
-    const input = this.value.trim();
-
-    if (input === _code) {
-      this.value = "Accessing Rift...";
-      
-      setTimeout(() => {
-        window.location.href = "silly.html";
-      }, 600);
-
-    } else {
-      this.value = "";
-      this.placeholder = "Access denied";
-    }
-  }
-});
-		</script>
+function go(page) {
+  window.location.href = ROUTES[page];
+}
+</script>
 
 </body>
-
 </html>

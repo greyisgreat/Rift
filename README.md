@@ -1,6 +1,6 @@
 # 🛠️ Project: Rift By Yours Truly Me And Some other random person that I forked this from 😃
 
-Welcome to **Soggymalk32** — the project you never knew you needed, but now can’t live without. This magical concoction of HTML, JavaScript, and wizardry lets you do [insert awesome thing here] like a pro.
+Welcome to **RIFT** — the project you never knew you needed, but now can’t live without. This magical concoction of HTML, JavaScript, and wizardry lets you do like a pro.
 
 ## ✨ Features
 

@@ -12,3 +12,5 @@ U know so cool u just have to try it
 
 ## 🚀 Getting Started
 Go to website duh
+Enter Secret Code Into tha search bar
+find secret code in websites code CTRL + U OR CMD + U
